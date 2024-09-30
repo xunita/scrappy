@@ -96,6 +96,8 @@ class JobScrapper:
             self.__selectors = self.__activeUrl['indeed']
         elif ('linkedin' in url):
             self.__selectors = self.__activeUrl['linkedin']
+        else:
+            raise Exception("The url is not supported")
         # init the driver
         self.init_driver()
 
@@ -296,7 +298,7 @@ class JobScrapper:
                         "arguments[0].scrollTop = arguments[0].scrollHeight;", list)
 
                     # Wait for new content to load (adjust time if needed)
-                    sleep(3)
+                    sleep(2)
 
                     # Check new scroll height and compare with last scroll height
                     new_height = self.__driver.execute_script(
