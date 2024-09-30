@@ -18,16 +18,16 @@ acceptTerms = jobScrapper.accept_cookies()
 # sign in
 jobScrapper.login()
 # add a sleep
-sleep(5)
+sleep(3)
 # go to the jobs page
 jobScrapper.go_to_jobs_page()
 # add a sleep
-sleep(4)
+sleep(3)
 # search for jobs
 jobScrapper.search_jobs(location='France', keywords="")
 # add a sleep
-sleep(4)
+sleep(3)
 # scrape the jobs
 jobs = jobScrapper.scrap_jobs()
 # add a sleep
-sleep(4)
+sleep(3)

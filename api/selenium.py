@@ -70,6 +70,9 @@ class JobScrapper:
             'html_data': [],
             'card': {
                 'selector': 'li.jobs-search-results__list-item div.job-card-container',
+            },
+            'search_list': {
+                'selector': 'div.jobs-search-results-list',
             }
         }
 
@@ -241,6 +244,39 @@ class JobScrapper:
         except Exception as e:
             return False
 
+    #  scroll to the bottom of the page
+
+    def scroll_to_bottom(self, selector):
+        try:
+            # get the body element
+            list = self.find_element_by_selector(selector)
+            if list is not None:
+                # Scroll down and check if new content is loaded
+                last_height = self.__driver.execute_script(
+                    "return arguments[0].scrollHeight;", list)
+                # scroll to the bottom of the page
+                while True:
+                    # Scroll down the div
+                    self.__driver.execute_script(
+                        "arguments[0].scrollTop = arguments[0].scrollHeight;", list)
+
+                    # Wait for new content to load (adjust time if needed)
+                    sleep(3)
+
+                    # Check new scroll height and compare with last scroll height
+                    new_height = self.__driver.execute_script(
+                        "return arguments[0].scrollHeight;", list)
+
+                    if new_height == last_height:
+                        # If the height hasn't changed, all content is loaded
+                        break
+                    last_height = new_height
+                return True
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
     # search for jobs
     def search_jobs(self, location='France', keywords=""):
         try:
@@ -265,8 +301,12 @@ class JobScrapper:
             actions = ActionChains(self.__driver)
             actions.send_keys(Keys.ENTER)
             actions.perform()
-            #
-            return True
+            # sleep for 4 seconds
+            sleep(3)
+            # scroll to the bottom of the page
+            return self.scroll_to_bottom(
+                self.__selectors['jobs_results']['search_list']['selector'])
+
         except Exception as e:
             return False
 
