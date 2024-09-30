@@ -4,14 +4,12 @@ from time import sleep
 # Initialize the JobScrapper class
 jobScrapper = JobScrapper(
     "https://www.linkedin.com"
-    # "https://fr.indeed.com/jobs?q=dev&l=France"
+    # "https://fr.indeed.com"
 )
 open = jobScrapper.open_url()
 # add a sleep to wait for the page to load
 sleep(3)
-# dismiss the popup if any
-dismissed = jobScrapper.dismiss_popup()
-# dismiss the popup if any
+# dismiss the google popup if any
 dismissed_google = jobScrapper.dismiss_google_popup()
 # sign in
 jobScrapper.login()
