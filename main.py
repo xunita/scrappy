@@ -13,12 +13,14 @@ sleep(3)
 dismissed = jobScrapper.dismiss_popup()
 # dismiss the popup if any
 dismissed_google = jobScrapper.dismiss_google_popup()
-# accept the cookies if any
-acceptTerms = jobScrapper.accept_cookies()
 # sign in
 jobScrapper.login()
 # add a sleep
 sleep(3)
+# accept the cookies if any
+acceptTerms = jobScrapper.accept_cookies()
+# add a sleep
+sleep(1)
 # go to the jobs page
 jobScrapper.go_to_jobs_page()
 # add a sleep
