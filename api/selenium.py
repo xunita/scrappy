@@ -73,7 +73,10 @@ class JobScrapper:
             },
             'search_list': {
                 'selector': 'div.jobs-search-results-list',
-            }
+            },
+            'pagination_next': {
+                'selector': 'button.jobs-search-pagination__button--next',
+            },
         }
 
     }
@@ -102,6 +105,7 @@ class JobScrapper:
         self.__driver.quit()
 
     # quit the driver when the object is deleted
+    # todo: be careful with this as it can cause browser to close unexpectedly when the object is deleted
 
     # def __del__(self):
     #     self.__driver.quit()
@@ -128,6 +132,7 @@ class JobScrapper:
     def open_url(self):
         try:
             self.__driver.get(self.__url)
+            self.__driver.maximize_window()
             return True
         except Exception as e:
             return False
@@ -229,6 +234,36 @@ class JobScrapper:
         except Exception as e:
             return False
 
+    # login to the page
+
+    def login(self):
+        try:
+            # get the sign in button
+            sign_in = self.find_element_by_selector(
+                self.__selectors['sign_in']['page_btn']['selector'])
+            # if the sign in button is found
+            if sign_in is not None:
+                sign_in.click()
+                sleep(3)
+                # get the username input
+                username = self.find_element_by_id(
+                    self.__selectors['sign_in']['username']['id'])
+                # get the password input
+                password = self.find_element_by_id(
+                    self.__selectors['sign_in']['password']['id'])
+                # get the submit button
+                submit = self.find_element_by_selector(
+                    self.__selectors['sign_in']['submit_btn']['selector'])
+                # if the username and password are found
+                if username is not None and password is not None:
+                    username.send_keys(self.__selectors['username'])
+                    password.send_keys(self.__selectors['password'])
+                    submit.click()
+                    return True
+            return False
+        except Exception as e:
+            return False
+
     # go to the jobs page
 
     def go_to_jobs_page(self):
@@ -309,51 +344,51 @@ class JobScrapper:
         except Exception as e:
             return False
 
-    # login to the page
-    def login(self):
+    # go next page
+
+    def go_next_page(self):
         try:
-            # get the sign in button
-            sign_in = self.find_element_by_selector(
-                self.__selectors['sign_in']['page_btn']['selector'])
-            # if the sign in button is found
-            if sign_in is not None:
-                sign_in.click()
-                sleep(3)
-                # get the username input
-                username = self.find_element_by_id(
-                    self.__selectors['sign_in']['username']['id'])
-                # get the password input
-                password = self.find_element_by_id(
-                    self.__selectors['sign_in']['password']['id'])
-                # get the submit button
-                submit = self.find_element_by_selector(
-                    self.__selectors['sign_in']['submit_btn']['selector'])
-                # if the username and password are found
-                if username is not None and password is not None:
-                    username.send_keys(self.__selectors['username'])
-                    password.send_keys(self.__selectors['password'])
-                    submit.click()
-                    return True
+            # get the next button
+            next_btn = self.find_element_by_selector(
+                self.__selectors['jobs_results']['pagination_next']['selector'])
+            # if the next button is found
+            if next_btn is not None:
+                next_btn.click()
+                # add a sleep
+                sleep(5)
+                # scroll to the bottom of the page
+                return self.scroll_to_bottom(
+                    self.__selectors['jobs_results']['search_list']['selector'])
             return False
         except Exception as e:
             return False
 
     # scrap the jobs
+
     def scrap_jobs(self):
         try:
             self.__selectors['jobs_results']['html_data'].clear()
-            # get the jobs results
-            jobs_results = self.find_elements_by_selector(
-                self.__selectors['jobs_results']['card']['selector'])
-            # if the jobs results are found
-            if jobs_results is not None:
-                for job in jobs_results:
-                    job.click()
+            # iterate over the pages
+            while True:
+                # get the jobs results
+                jobs_results = self.find_elements_by_selector(
+                    self.__selectors['jobs_results']['card']['selector'])
+                # if the jobs results are found
+                if jobs_results is not None:
+                    for job in jobs_results:
+                        job.click()
+                        sleep(3)
+                        # save the html data
+                        self.__selectors['jobs_results']['html_data'].append(
+                            self.__driver.page_source)
+                    # go to the next page
+                    hasNext = self.go_next_page()
+                    # check if there is no next page then break
+                    if(not hasNext):
+                        break
                     sleep(3)
-                    # save the html data
-                    self.__selectors['jobs_results']['html_data'].append(
-                        self.__driver.page_source)
-                return True
-            return False
+                else:
+                    break
+            return True
         except Exception as e:
             return False

@@ -23,7 +23,7 @@ sleep(3)
 jobScrapper.go_to_jobs_page()
 # add a sleep
 sleep(3)
-# search for jobs
+# search for jobs in specific location and with specific keywords
 jobScrapper.search_jobs(location='France', keywords="")
 # add a sleep
 sleep(3)
