@@ -341,6 +341,7 @@ class JobScrapper:
     # scrap the jobs
     def scrap_jobs(self):
         try:
+            self.__selectors['jobs_results']['html_data'].clear()
             # get the jobs results
             jobs_results = self.find_elements_by_selector(
                 self.__selectors['jobs_results']['card']['selector'])
