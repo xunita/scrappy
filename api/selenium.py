@@ -274,7 +274,6 @@ class JobScrapper:
                 return True
             return False
         except Exception as e:
-            print(e)
             return False
 
     # search for jobs
@@ -337,7 +336,6 @@ class JobScrapper:
                     return True
             return False
         except Exception as e:
-            print(e)
             return False
 
     # scrap the jobs
@@ -354,7 +352,6 @@ class JobScrapper:
                     # save the html data
                     self.__selectors['jobs_results']['html_data'].append(
                         self.__driver.page_source)
-                print(self.__selectors['jobs_results']['html_data'])
                 return True
             return False
         except Exception as e:
