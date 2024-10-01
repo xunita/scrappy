@@ -298,7 +298,7 @@ class JobScrapper:
                         "arguments[0].scrollTop = arguments[0].scrollHeight;", list)
 
                     # Wait for new content to load (adjust time if needed)
-                    sleep(2)
+                    sleep(1.5)
 
                     # Check new scroll height and compare with last scroll height
                     new_height = self.__driver.execute_script(
@@ -357,7 +357,7 @@ class JobScrapper:
             if next_btn is not None:
                 next_btn.click()
                 # add a sleep
-                sleep(5)
+                sleep(3)
                 # scroll to the bottom of the page
                 return self.scroll_to_bottom(
                     self.__selectors['jobs_results']['search_list']['selector'])
