@@ -1,33 +1,39 @@
 from api.selenium import JobScrapper
 from time import sleep
 
-# Initialize the JobScrapper class
+# Initialize the JobScrapper class and open the browser if needed
 jobScrapper = JobScrapper(
-    "https://www.linkedin.com"
-    # "https://fr.indeed.com"
+    "https://www.linkedin.com"    # "https://fr.indeed.com"
+    , browserOpened=False
 )
-open = jobScrapper.open_url()
-# add a sleep to wait for the page to load
-sleep(3)
-# dismiss the google popup if any
-dismissed_google = jobScrapper.dismiss_google_popup()
-# sign in
-jobScrapper.login()
-# add a sleep
-sleep(3)
-# accept the cookies if any
-acceptTerms = jobScrapper.accept_cookies()
-# add a sleep
-sleep(1)
-# go to the jobs page
-jobScrapper.go_to_jobs_page()
-# add a sleep
-sleep(3)
-# search for jobs in specific location and with specific keywords
-jobScrapper.search_jobs(location='France', keywords="")
-# add a sleep
-sleep(3)
-# scrape the jobs
-jobs = jobScrapper.scrap_jobs()
-# add a sleep
-sleep(3)
+# go to the url
+# open = jobScrapper.open_url()
+# # add a sleep to wait for the page to load
+# sleep(3)
+# # dismiss the google popup if any
+# dismissed_google = jobScrapper.dismiss_google_popup()
+# # sign in
+# jobScrapper.login()
+# # add a sleep
+# sleep(3)
+# # accept the cookies if any
+# acceptTerms = jobScrapper.accept_cookies()
+# # add a sleep
+# sleep(1)
+# # go to the jobs page
+# jobScrapper.go_to_jobs_page()
+# # add a sleep
+# sleep(3)
+# # search for jobs in specific location and with specific keywords
+# jobScrapper.search_jobs(location='France', keywords="")
+# # add a sleep
+# sleep(3)
+# # scrape the jobs (max pages to scrape is 10 default)
+# jobs = jobScrapper.scrap_jobs(maxPages=1)
+# # add a sleep
+# sleep(3)
+
+# read the saved jobs
+jobScrapper.read_saved_jobs()
+# show the jobs titles
+jobScrapper.show_jobs_titles()

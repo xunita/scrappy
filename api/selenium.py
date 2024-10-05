@@ -1,8 +1,10 @@
 from selenium import webdriver
+from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
+import os
 
 from keywords.jobsKeys import jobsKeys
 from utils.utils import urls
@@ -67,7 +69,8 @@ class JobScrapper:
             }
         },
         'jobs_results': {
-            'html_data': [],
+            'read_jobs': {},
+            'html_data': {},
             'card': {
                 'selector': 'li.jobs-search-results__list-item div.job-card-container',
             },
@@ -77,6 +80,11 @@ class JobScrapper:
             'pagination_next': {
                 'selector': 'button.jobs-search-pagination__button--next',
             },
+        },
+        'bs4': {
+            'job_title': {
+                'selector': '.job-details-jobs-unified-top-card__job-title',
+            }
         }
 
     }
@@ -89,7 +97,7 @@ class JobScrapper:
     __driver = None
     # constructor
 
-    def __init__(self, url):
+    def __init__(self, url, browserOpened=True):
         # the url
         self.__url = url
         if ('indeed' in url):
@@ -99,12 +107,14 @@ class JobScrapper:
         else:
             raise Exception("The url is not supported")
         # init the driver
-        self.init_driver()
+        self.init_driver(browserOpened)
+
+    # close the browser
+
+    def exit_browser(self):
+        self.__driver.quit()
 
     # destructor
-
-    def exit(self):
-        self.__driver.quit()
 
     # quit the driver when the object is deleted
     # todo: be careful with this as it can cause browser to close unexpectedly when the object is deleted
@@ -124,10 +134,12 @@ class JobScrapper:
 
     # init the driver
 
-    def init_driver(self):
+    def init_driver(self, browserOpened=True):
         # if the driver is not initialized(firefox by default)
         if (self.__driver is None):
             self.__driver = webdriver.Firefox()
+            if (not browserOpened):
+                self.exit_browser()
 
     # open the url async
 
@@ -357,7 +369,7 @@ class JobScrapper:
             if next_btn is not None:
                 next_btn.click()
                 # add a sleep
-                sleep(3)
+                sleep(2.5)
                 # scroll to the bottom of the page
                 return self.scroll_to_bottom(
                     self.__selectors['jobs_results']['search_list']['selector'])
@@ -367,7 +379,8 @@ class JobScrapper:
 
     # scrap the jobs
 
-    def scrap_jobs(self):
+    def scrap_jobs(self, maxPages=10):
+        jobId = 0
         try:
             self.__selectors['jobs_results']['html_data'].clear()
             # iterate over the pages
@@ -378,19 +391,89 @@ class JobScrapper:
                 # if the jobs results are found
                 if jobs_results is not None:
                     for job in jobs_results:
+                        #
+                        jobId = jobId + 1
                         job.click()
-                        sleep(3)
+                        sleep(2)
                         # save the html data
-                        self.__selectors['jobs_results']['html_data'].append(
-                            self.__driver.page_source)
+                        self.__selectors['jobs_results']['html_data'][f'{
+                            jobId}'] = self.__driver.page_source
+                    # decrement the max pages
+                    maxPages = maxPages - 1
+                    # if max pages is 0 then break (limit the number of pages to scrape)
+                    if maxPages == 0:
+                        break
                     # go to the next page
                     hasNext = self.go_next_page()
                     # check if there is no next page then break
-                    if(not hasNext):
+                    if (not hasNext):
                         break
-                    sleep(3)
                 else:
                     break
+
+            # save the jobs data to a json file
+
+            # check if the html data is not empty
+            if not self.__selectors['jobs_results']['html_data']:
+                return False
+            # save the jobs data to a json file
+            return self.save_jobs_html()
+        except Exception as e:
+            print(e)
+            return False
+
+    # save the jobs data to a json file (import json)
+
+    # def save_jobs_json(self):
+    #     try:
+    #         # save the jobs data to a json file
+    #         with open('jobs.json', 'w') as f:
+    #             json.dump(self.__selectors['jobs_results']
+    #                       ['html_data'], f)
+    #         return True
+    #     except Exception as e:
+    #         print(e)
+    #         return False
+
+    # save the jobs data as individual html files
+
+    def save_jobs_html(self):
+        try:
+            # save the jobs data to a json file
+            for jobId, jobData in self.__selectors['jobs_results']['html_data'].items():
+                with open(f'jobs/job_{jobId}.html', 'w', encoding='utf-8') as f:
+                    f.write(jobData)
             return True
         except Exception as e:
+            print(e)
+            return False
+
+    # read jobs from jobs dir (html files), i dont know number of jobs so i will read all the files in the jobs dir
+    def read_saved_jobs(self):
+        try:
+            # get the jobs dir
+            jobsDir = os.listdir('jobs')
+            # iterate over the jobs dir
+            for job in jobsDir:
+                # read the job file
+                with open(f'jobs/{job}', 'r', encoding='utf-8') as f:
+                    self.__selectors['jobs_results']['read_jobs'][job] = f.read()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+    #  show the jobs titles
+    def show_jobs_titles(self):
+        try:
+            for job, jobData in self.__selectors['jobs_results']['read_jobs'].items():
+                soup = BeautifulSoup(jobData, 'html.parser')
+                jobTitles = soup.css.select(
+                    f'{self.__selectors['bs4']['job_title']['selector']}')
+                for title in jobTitles:
+                    #  print the job title if found
+                    print(title.text)
+            return True
+        except Exception as e:
+            print(e)
             return False
