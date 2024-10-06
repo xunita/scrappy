@@ -14,6 +14,7 @@ from utils.utils import urls
 
 class JobScrapper:
     # selectors
+    __jobId = 0
     __indeedSelectors = {
         "accept_cookies": {
             'id': 'onetrust-accept-btn-handler'
@@ -325,6 +326,23 @@ class JobScrapper:
         except Exception as e:
             return False
 
+    # find jobs
+
+    def find_jobs(self, location='France'):
+        try:
+            # for each keyword
+            for keyword in jobsKeys():
+                # search for jobs
+                self.search_jobs(location, keyword)
+                # scrap the jobs
+                self.scrap_jobs(maxPages=1)
+                # sleep for 1.5 seconds
+                sleep(1.5)
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
     # search for jobs
     def search_jobs(self, location='France', keywords=""):
         try:
@@ -380,9 +398,7 @@ class JobScrapper:
     # scrap the jobs
 
     def scrap_jobs(self, maxPages=10):
-        jobId = 0
         try:
-            self.__selectors['jobs_results']['html_data'].clear()
             # iterate over the pages
             while True:
                 # get the jobs results
@@ -392,12 +408,12 @@ class JobScrapper:
                 if jobs_results is not None:
                     for job in jobs_results:
                         #
-                        jobId = jobId + 1
+                        self.__jobId = self.__jobId + 1
                         job.click()
                         sleep(2)
                         # save the html data
                         self.__selectors['jobs_results']['html_data'][f'{
-                            jobId}'] = self.__driver.page_source
+                            self.__jobId}'] = self.__driver.page_source
                     # decrement the max pages
                     maxPages = maxPages - 1
                     # if max pages is 0 then break (limit the number of pages to scrape)
