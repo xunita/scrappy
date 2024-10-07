@@ -22,7 +22,7 @@ password = getpass("password: ")
 # Initialize the JobScrapper class and open the browser if needed
 jobScrapper = JobScrapper(
     "https://www.linkedin.com/login"    # "https://fr.indeed.com"
-    , browserOpened=True
+    , browserOpened=False
 )
 
 # open the browser (hidden to the user if the browserOpened is set to False)
@@ -52,6 +52,7 @@ print("Enter 1 to scrap the job offers (will suggest the skills you need to acqu
 # coming soon
 print("Enter 2 to scrap a profile.")
 print("Enter 3 to scrap a company.")
+print("Enter 4 to read job offers saved.")
 print("Enter 0 to exit.")
 print("------------------------------------------------------")
 
@@ -89,12 +90,15 @@ while option != "0":
         print("Please enter the company you want to scrap.")
         company_url = input()
         jobScrapper.scrap_company(company_url)
+    elif option == "4":
+        jobScrapper.read_saved_jobs() and jobScrapper.show_jobs_titles()
     else:
         print("Invalid choice. Please enter a valid choice.")
     print("-------------------- Scrapping Options --------------------")
     print("Enter 1 to scrap the job offers (will suggest the skills you need to acquire).")
     print("Enter 2 to scrap a profile.")
     print("Enter 3 to scrap a company.")
+    print("Enter 4 to read job offers saved.")
     print("Enter 0 to exit.")
     print("------------------------------------------------------")
     option = input("Enter your choice: ")

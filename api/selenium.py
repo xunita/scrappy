@@ -8,6 +8,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import os
+import spacy
+
 
 from keywords.jobsKeys import jobsKeys
 from utils.utils import urls
@@ -85,6 +87,9 @@ class JobScrapper:
             }
         },
         'jobs_results': {
+            'description': {
+                'selector': '#job-details > div:nth-child(1)',
+            },
             'read_jobs': {},
             'html_data': {},
             'card': {
@@ -96,6 +101,10 @@ class JobScrapper:
             'pagination_next': {
                 'selector': 'button.jobs-search-pagination__button--next',
             },
+        },
+        'job_details': {
+            'skills': {},
+            'title': '',
         },
         'bs4': {
             'job_title': {
@@ -161,7 +170,7 @@ class JobScrapper:
                 options.add_argument('--headless')
             self.__driver = webdriver.Firefox(options=options)
 
-    # open the url async
+    # open the url
 
     def open_url(self):
         try:
@@ -469,19 +478,6 @@ class JobScrapper:
             print(e)
             return False
 
-    # save the jobs data to a json file (import json)
-
-    # def save_jobs_json(self):
-    #     try:
-    #         # save the jobs data to a json file
-    #         with open('jobs.json', 'w') as f:
-    #             json.dump(self.__selectors['jobs_results']
-    #                       ['html_data'], f)
-    #         return True
-    #     except Exception as e:
-    #         print(e)
-    #         return False
-
     # save the jobs data as individual html files
 
     def save_jobs_html(self):
@@ -512,41 +508,24 @@ class JobScrapper:
     #  show the jobs titles
     def show_jobs_titles(self):
         try:
+            if (len(self.__selectors['jobs_results']['read_jobs']) == 0):
+                print("No jobs saved")
+                return False
             for job, jobData in self.__selectors['jobs_results']['read_jobs'].items():
+                # format and save the job data to a pandas dataframe
                 soup = BeautifulSoup(jobData, 'html.parser')
-                jobTitles = soup.css.select(
-                    f'{self.__selectors['bs4']['job_title']['selector']}')
-                for title in jobTitles:
-                    #  print the job title if found
-                    print(title.text)
+                jobTitles = soup.select_one(
+                    self.__selectors['bs4']['job_title']['selector'])
+                jobDescriptionsP = soup.find(id='job-details')
+                jobDescriptions = jobDescriptionsP.find('div')
+                print(jobTitles.get_text(strip=True))
+                print(jobDescriptions.get_text(strip=True))
+                print(self.extract_skills(
+                    jobTitles.get_text(strip=True), jobDescriptions.get_text(strip=True)))
             return True
         except Exception as e:
             print(e)
             return False
-
-    #  find launch the scraaping
-    def launch_scrapping(self):
-
-        # go to the url
-        open = self.open_url()
-        # add a sleep to wait for the page to load
-        sleep(3)
-        # dismiss the google popup if any
-        dismissed_google = self.dismiss_google_popup()
-        # add a sleep
-        sleep(3)
-        # sign in
-        self.login()
-        # add a sleep
-        sleep(3)
-        # accept the cookies if any
-        acceptTerms = self.accept_cookies()
-        # add a sleep
-        sleep(1)
-        # go to the jobs page
-        self.go_to_jobs_page()
-        # add a sleep
-        sleep(3)
 
     # scrap a profile
     def scrap_profile(self, profile):
@@ -586,3 +565,24 @@ class JobScrapper:
             return False
         except Exception as e:
             return False
+
+    #  extract skills (this will transform the job description into a list of potential skills to clean and analyze)
+    def extract_skills(self, jobTitle, description):
+        try:
+            print('------------------------------------------------------')
+            print(f'Extracting skills for Job: {jobTitle}')
+            print('------------------------------------------------------')
+            # extract the
+            nlp = spacy.load("fr_core_news_sm")
+            skills = []
+            doc = nlp(description)
+            # Extract nouns, proper nouns, and verbs
+            for token in doc:
+                if token.pos_ in ['NOUN', 'PROPN', 'VERB']:
+                    skills.append(token.text)
+
+            # only return the skills that might be relevant to the job (prediction)
+
+            return skills
+        except Exception as e:
+            return []
