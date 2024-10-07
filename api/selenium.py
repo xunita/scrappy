@@ -2,7 +2,10 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import os
 
@@ -21,8 +24,6 @@ class JobScrapper:
         }
     }
     __linkedinSelectors = {
-        'username': 'theivorian97@gmail.com',
-        'password': 'Azerty@12',
         "dismiss_popup": {
             'selector': 'button.modal__dismiss',
         },
@@ -39,6 +40,19 @@ class JobScrapper:
         "join_form": {
             "selector": "form.join-form",
         },
+        "login_form": {
+            'class': 'login__form',
+            "selector": "form.login__form",
+        },
+        'organization': {
+            'class': 'org-top-card__primary-content',
+            'selector': 'div.org-top-card__primary-content',
+        },
+        'profile': {
+            'existed': 'div.pv-top-card__non-self-photo-wrapper',
+            'class': 'profile-card-profile-picture-container',
+            'selector': 'button.profile-card-profile-picture-container',
+        },
         "sign_in": {
             'page_btn': {
                 'selector': 'a.nav__button-secondary',
@@ -54,6 +68,7 @@ class JobScrapper:
             },
         },
         'jobs_page': {
+            'home': 'nav.jobs-home-scalable-nav',
             'selector': 'div.base-serp-page__filters',
             'search_location': {
                 'selector': 'div.jobs-search-box__input--location input.jobs-search-box__text-input',
@@ -138,9 +153,13 @@ class JobScrapper:
     def init_driver(self, browserOpened=True):
         # if the driver is not initialized(firefox by default)
         if (self.__driver is None):
-            self.__driver = webdriver.Firefox()
+
+            options = Options()
+
+            # will not open the browser if the browserOpened is set to false
             if (not browserOpened):
-                self.exit_browser()
+                options.add_argument('--headless')
+            self.__driver = webdriver.Firefox(options=options)
 
     # open the url async
 
@@ -148,7 +167,13 @@ class JobScrapper:
         try:
             self.__driver.get(self.__url)
             self.__driver.maximize_window()
-            return True
+            login_page = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.__selectors['login_form']['selector']))
+            )
+            if login_page is not None:
+                return True
+            return False
         except Exception as e:
             return False
 
@@ -251,30 +276,35 @@ class JobScrapper:
 
     # login to the page
 
-    def login(self):
+    def login(self, username, password):
         try:
-            # get the sign in button
-            sign_in = self.find_element_by_selector(
-                self.__selectors['sign_in']['page_btn']['selector'])
-            # if the sign in button is found
-            if sign_in is not None:
-                sign_in.click()
-                sleep(3)
-                # get the username input
-                username = self.find_element_by_id(
-                    self.__selectors['sign_in']['username']['id'])
-                # get the password input
-                password = self.find_element_by_id(
-                    self.__selectors['sign_in']['password']['id'])
-                # get the submit button
-                submit = self.find_element_by_selector(
-                    self.__selectors['sign_in']['submit_btn']['selector'])
-                # if the username and password are found
-                if username is not None and password is not None:
-                    username.send_keys(self.__selectors['username'])
-                    password.send_keys(self.__selectors['password'])
-                    submit.click()
+            # get the username input
+            usernameTag = self.find_element_by_id(
+                self.__selectors['sign_in']['username']['id'])
+            # get the password input
+            passwordTag = self.find_element_by_id(
+                self.__selectors['sign_in']['password']['id'])
+            # get the submit button
+            submitTag = self.find_element_by_selector(
+                self.__selectors['sign_in']['submit_btn']['selector'])
+            # if the username and password are found
+            if usernameTag is not None and passwordTag is not None:
+                usernameTag.clear()
+                passwordTag.clear()
+                usernameTag.send_keys(username)
+                passwordTag.send_keys(password)
+                submitTag.click()
+                profile = WebDriverWait(self.__driver, 5).until(
+                    EC.presence_of_element_located(
+                        (By.CSS_SELECTOR, self.__selectors['profile']['selector']))
+                )
+                if (self.__selectors['profile']['class'] in profile.get_attribute('class')):
                     return True
+                else:
+                    # redirect to the login page
+                    self.__driver.get(self.__url)
+            else:
+                self.__driver.get(self.__url)
             return False
         except Exception as e:
             return False
@@ -283,12 +313,14 @@ class JobScrapper:
 
     def go_to_jobs_page(self):
         try:
-            # get the jobs button
-            jobs = self.find_element_by_selector(
-                self.__selectors['jobs_btn']['selector'])
-            #  click the jobs button
-            if jobs is not None:
-                jobs.click()
+            # go to the jobs page
+            self.__driver.get('https://www.linkedin.com/jobs/')
+            # check if the jobs page is loaded
+            job_home = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.__selectors['jobs_page']['home']))
+            )
+            if job_home is not None:
                 return True
             return False
         except Exception as e:
@@ -326,21 +358,18 @@ class JobScrapper:
         except Exception as e:
             return False
 
-    # find jobs
-
-    def find_jobs(self, location='France'):
+    # find and suggest
+    def find_and_suggest(self, keyword, location, maxjobs):
         try:
-            # for each keyword
-            for keyword in jobsKeys():
-                # search for jobs
-                self.search_jobs(location, keyword)
-                # scrap the jobs
-                self.scrap_jobs(maxPages=1)
-                # sleep for 1.5 seconds
-                sleep(1.5)
+            # read the saved
+            nbJobs = 0
+            self.search_jobs(location, keyword)
+            self.scrap_jobs(nbJobs, maxjobs)
+            # print nbJobs scrapped
+            print(
+                f'{len(self.__selectors['jobs_results']['html_data'])} jobs scrapped')
             return True
         except Exception as e:
-            print(e)
             return False
 
     # search for jobs
@@ -397,9 +426,9 @@ class JobScrapper:
 
     # scrap the jobs
 
-    def scrap_jobs(self, maxPages=10):
+    def scrap_jobs(self, nbJobs, maxJobs):
         try:
-            # iterate over the pages
+            breakFor = False
             while True:
                 # get the jobs results
                 jobs_results = self.find_elements_by_selector(
@@ -407,28 +436,30 @@ class JobScrapper:
                 # if the jobs results are found
                 if jobs_results is not None:
                     for job in jobs_results:
-                        #
                         self.__jobId = self.__jobId + 1
                         job.click()
+                        #
                         sleep(2)
                         # save the html data
                         self.__selectors['jobs_results']['html_data'][f'{
                             self.__jobId}'] = self.__driver.page_source
-                    # decrement the max pages
-                    maxPages = maxPages - 1
-                    # if max pages is 0 then break (limit the number of pages to scrape)
-                    if maxPages == 0:
+
+                        # increment the number of jobs
+                        nbJobs += 1
+
+                        if nbJobs >= maxJobs:
+                            breakFor = True
+                            break
+
+                    if breakFor:
                         break
                     # go to the next page
                     hasNext = self.go_next_page()
-                    # check if there is no next page then break
-                    if (not hasNext):
+                    #
+                    if not hasNext:
                         break
                 else:
                     break
-
-            # save the jobs data to a json file
-
             # check if the html data is not empty
             if not self.__selectors['jobs_results']['html_data']:
                 return False
@@ -461,7 +492,6 @@ class JobScrapper:
                     f.write(jobData)
             return True
         except Exception as e:
-            print(e)
             return False
 
     # read jobs from jobs dir (html files), i dont know number of jobs so i will read all the files in the jobs dir
@@ -492,4 +522,67 @@ class JobScrapper:
             return True
         except Exception as e:
             print(e)
+            return False
+
+    #  find launch the scraaping
+    def launch_scrapping(self):
+
+        # go to the url
+        open = self.open_url()
+        # add a sleep to wait for the page to load
+        sleep(3)
+        # dismiss the google popup if any
+        dismissed_google = self.dismiss_google_popup()
+        # add a sleep
+        sleep(3)
+        # sign in
+        self.login()
+        # add a sleep
+        sleep(3)
+        # accept the cookies if any
+        acceptTerms = self.accept_cookies()
+        # add a sleep
+        sleep(1)
+        # go to the jobs page
+        self.go_to_jobs_page()
+        # add a sleep
+        sleep(3)
+
+    # scrap a profile
+    def scrap_profile(self, profile):
+        try:
+            # open the profile url
+            profile_url = f'https://www.linkedin.com/in/{profile}'
+            self.__driver.get(profile_url)
+            exist = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.__selectors['profile']['existed']))
+            )
+            if exist is not None:
+                # exist
+                print("Profile exists")
+                return True
+
+            return False
+        except Exception as e:
+            return False
+
+    # scrap a company
+    def scrap_company(self, company):
+        try:
+            # open the company url
+            company_url = f'https://www.linkedin.com/company/{company}'
+            self.__driver.get(company_url)
+            exist = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, self.__selectors['organization']['selector']))
+            )
+            if exist is not None:
+                # exist
+                print("Company exists")
+                return True
+            else:
+                print("Company does not exist")
+            return False
+        except Exception as e:
             return False
