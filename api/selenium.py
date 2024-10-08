@@ -230,7 +230,7 @@ class JobScrapper:
                     # save alumni data to json replace file if it exists
                     with open('jobs/alumni.json', 'w') as fp:
                         json.dump(self.__alumni_data, fp)
-                    print("Data saved successfully")
+                    print("Data saved successfully to jobs/alumni.json")
                 else:
                     print("No alumni data found")
                 return True
