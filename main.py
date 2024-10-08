@@ -18,7 +18,7 @@ print("Initializing the Scrapper...")
 # Initialize the JobScrapper class and open the browser if needed
 jobScrapper = JobScrapper(
     "https://www.linkedin.com/login"    # "https://fr.indeed.com"
-    , browserOpened=True
+    , browserOpened=False
 )
 
 # open the browser (hidden to the user if the browserOpened is set to False)
