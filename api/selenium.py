@@ -277,6 +277,9 @@ class JobScrapper:
             column[f'{c.get_text(strip=True)}'] = []
             # print('data for:', c.get_text(strip=True))
             # print(c_data)
+            col_list_all = {
+                f'{c.get_text(strip=True)}': []
+            }
             for elem in c_data:
                 col_list = {}
                 # print(elem)
@@ -288,6 +291,6 @@ class JobScrapper:
                 col_list['number'] = nb.get_text(strip=True)
                 col_list['value'] = value.get_text(strip=True)
                 column[f'{c.get_text(strip=True)}'].append(col_list)
-                #
-                data['cols'].append(column)
+                col_list_all[f'{c.get_text(strip=True)}'].append(col_list)
+            data['cols'].append(col_list_all)
         return data
