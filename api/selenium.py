@@ -221,15 +221,18 @@ class JobScrapper:
                     show_more.click()
                     sleep(3)
                 #
-                print("Alumni data found")
                 # save the page source
                 data = self.format_page_source(
                     school, jobTitle, startYear, endYear)
                 if len(data) > 0:
                     self.__alumni_data.append(data)
+                    print("Saving the data...")
                     # save alumni data to json replace file if it exists
                     with open('jobs/alumni.json', 'w') as fp:
                         json.dump(self.__alumni_data, fp)
+                    print("Data saved successfully")
+                else:
+                    print("No alumni data found")
                 return True
             print("No alumni data found")
             return False
