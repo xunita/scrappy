@@ -53,7 +53,8 @@ class JobScrapper:
         'profile': {
             'existed': 'div.pv-top-card__non-self-photo-wrapper',
             'class': 'profile-card-profile-picture-container',
-            'selector': 'button.profile-card-profile-picture-container',
+            'selector1': 'a.profile-card-profile-picture-container',
+            'selector2': 'button.profile-card-profile-picture-container',
         },
         "sign_in": {
             'page_btn': {
@@ -100,6 +101,9 @@ class JobScrapper:
             },
             'pagination_next': {
                 'selector': 'button.jobs-search-pagination__button--next',
+            },
+            'pagination_next_new': {
+                'selector': 'ul.artdeco-pagination__pages li.artdeco-pagination__indicator--number button',
             },
         },
         'job_details': {
@@ -303,11 +307,16 @@ class JobScrapper:
                 usernameTag.send_keys(username)
                 passwordTag.send_keys(password)
                 submitTag.click()
-                profile = WebDriverWait(self.__driver, 5).until(
-                    EC.presence_of_element_located(
-                        (By.CSS_SELECTOR, self.__selectors['profile']['selector']))
-                )
-                if (self.__selectors['profile']['class'] in profile.get_attribute('class')):
+                # add a sleep
+                sleep(3)
+
+                profile = self.find_element_by_selector(
+                    self.__selectors['profile']['selector1'])
+
+                profile1 = self.find_element_by_selector(
+                    self.__selectors['profile']['selector2'])
+
+                if profile is not None or profile1 is not None:
                     return True
                 else:
                     # redirect to the login page
@@ -416,13 +425,23 @@ class JobScrapper:
 
     # go next page
 
-    def go_next_page(self):
+    def go_next_page(self, current_page):
         try:
             # get the next button
             next_btn = self.find_element_by_selector(
                 self.__selectors['jobs_results']['pagination_next']['selector'])
+            selector = f'ul.artdeco-pagination__pages li.artdeco-pagination__indicator--number:nth-child({current_page + 1}) button'
+            new_next_btn = self.find_element_by_selector(selector)
+
+            if new_next_btn is not None:
+                new_next_btn.click()
+                # add a sleep
+                sleep(2.5)
+                # scroll to the bottom of the page
+                return self.scroll_to_bottom(
+                    self.__selectors['jobs_results']['search_list']['selector'])
             # if the next button is found
-            if next_btn is not None:
+            elif next_btn is not None:
                 next_btn.click()
                 # add a sleep
                 sleep(2.5)
@@ -431,6 +450,7 @@ class JobScrapper:
                     self.__selectors['jobs_results']['search_list']['selector'])
             return False
         except Exception as e:
+            print(e)
             return False
 
     # scrap the jobs
@@ -438,6 +458,7 @@ class JobScrapper:
     def scrap_jobs(self, nbJobs, maxJobs):
         try:
             breakFor = False
+            current_page = 1
             while True:
                 # get the jobs results
                 jobs_results = self.find_elements_by_selector(
@@ -463,7 +484,7 @@ class JobScrapper:
                     if breakFor:
                         break
                     # go to the next page
-                    hasNext = self.go_next_page()
+                    hasNext = self.go_next_page(current_page)
                     #
                     if not hasNext:
                         break
@@ -518,8 +539,9 @@ class JobScrapper:
                     self.__selectors['bs4']['job_title']['selector'])
                 jobDescriptionsP = soup.find(id='job-details')
                 jobDescriptions = jobDescriptionsP.find('div')
-                print(jobTitles.get_text(strip=True))
-                print(jobDescriptions.get_text(strip=True))
+
+                # print(jobTitles.get_text(strip=True))
+                # print(jobDescriptions.get_text(strip=True))
                 print(self.extract_skills(
                     jobTitles.get_text(strip=True), jobDescriptions.get_text(strip=True)))
             return True
@@ -583,6 +605,11 @@ class JobScrapper:
 
             # only return the skills that might be relevant to the job (prediction)
 
-            return skills
+            return self.delete_duplicates(skills)
         except Exception as e:
             return []
+
+    # delete all duplicate in a list
+
+    def delete_duplicates(self, thelist):
+        return list(set(thelist))

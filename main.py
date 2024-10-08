@@ -13,16 +13,12 @@ print("This program will scrap the job offers from the website of your choice an
 print("Please, follow the instructions below to get started.")
 print("make sure to have access to internet for the application to work properly.")
 print("------------------------------------------------------")
-
-print("Please connect to your LinkedIn account to get started.")
-print("username: ")
-username = input()
-password = getpass("password: ")
+print("Initializing the Job Scrapper...")
 
 # Initialize the JobScrapper class and open the browser if needed
 jobScrapper = JobScrapper(
     "https://www.linkedin.com/login"    # "https://fr.indeed.com"
-    , browserOpened=False
+    , browserOpened=True
 )
 
 # open the browser (hidden to the user if the browserOpened is set to False)
@@ -36,15 +32,8 @@ while not opened:
 if (not opened):
     print("Please verify your internet connection and try again.")
     exit()
-
-while not logged:
-    logged = jobScrapper.login(username, password)
-    if not logged:
-        print("Please verify your credentials and try again or you may need to manually enter a code to login.")
-        username = input("username: ")
-        password = getpass("password: ")
-
-print("You have successfully logged in.")
+    
+print("The Job Scrapper is ready to use.")
 
 print("-------------------- Scrapping Options --------------------")
 print("Enter 1 to scrap the job offers (will suggest the skills you need to acquire).")
@@ -59,6 +48,25 @@ print("------------------------------------------------------")
 option = input("Enter your choice: ")
 while option != "0":
     if option == "1":
+        # 
+        print("Please connect to your LinkedIn account to get started.")
+        print("username: ")
+        username = input()
+        password = getpass("password: ")
+
+
+        while not logged:
+            logged = jobScrapper.login(username, password)
+            if not logged:
+                print(
+                    "Please verify your credentials and try again or you may need to manually enter a code to login.")
+                username = input("username: ")
+                password = getpass("password: ")
+
+        print("You have successfully logged in.")
+        # add a sleep time
+        sleep(2)
+        # 
         keyword = input("Please enter a job title: ")
         location = input(
             "Please enter a location (press Enter to skip with default location to France): ")
