@@ -1,0 +1,234 @@
+[
+  {
+    "school": "universit-paris-saclay",
+    "jobTitle": "qa testeur",
+    "startYear": "2002",
+    "endYear": "2024",
+    "cols": [
+      {
+        "Lieu de travail": [
+          { "number": "2", "value": "Capgemini" },
+          { "number": "2", "value": "Louis Vuitton" },
+          { "number": "1", "value": "FRISBEE PROFILING" },
+          { "number": "1", "value": "Shadow" },
+          { "number": "1", "value": "FUNECAP GROUPE" },
+          { "number": "1", "value": "L'AGENT X" },
+          { "number": "1", "value": "Orange" },
+          { "number": "1", "value": "Tower Five" },
+          { "number": "1", "value": "Atos" },
+          { "number": "1", "value": "UpMan Consulting" },
+          { "number": "1", "value": "Sogeti" },
+          { "number": "1", "value": "G7 taxis" },
+          { "number": "1", "value": "Systematix" },
+          { "number": "1", "value": "Veeam Software" },
+          { "number": "1", "value": "SEWAN GROUPE" }
+        ]
+      },
+      {
+        "Lieu de r\u00e9sidence": [
+          { "number": "40", "value": "France" },
+          { "number": "34", "value": "\u00cele-de-France, France" },
+          { "number": "32", "value": "Greater Paris Metropolitan Region" },
+          { "number": "14", "value": "Paris" },
+          { "number": "2", "value": "Courbevoie" },
+          { "number": "2", "value": "Hauts-de-France, France" },
+          { "number": "2", "value": "\u00c9vry" },
+          { "number": "1", "value": "Lille" },
+          { "number": "1", "value": "Vaires-sur-Marne" },
+          { "number": "1", "value": "Germany" },
+          { "number": "1", "value": "Grand Est, France" },
+          { "number": "1", "value": "Asni\u00e8res-sur-Seine" },
+          { "number": "1", "value": "Les Mureaux" },
+          { "number": "1", "value": "Guyancourt" },
+          { "number": "1", "value": "Champigny-sur-Marne" }
+        ]
+      },
+      {
+        "Occupation": [
+          { "number": "17", "value": "Assurance qualit\u00e9" },
+          { "number": "11", "value": "Ing\u00e9nierie" },
+          { "number": "3", "value": "Technologies de l\u2019information" },
+          { "number": "3", "value": "Op\u00e9rations" },
+          { "number": "2", "value": "Responsable produit" },
+          { "number": "1", "value": "Recherche" },
+          { "number": "1", "value": "Arts et Design" },
+          { "number": "1", "value": "D\u00e9veloppement commercial" },
+          { "number": "1", "value": "Conseil" }
+        ]
+      },
+      {
+        "Comp\u00e9tences": [
+          { "number": "19", "value": "SQL" },
+          { "number": "18", "value": "M\u00e9thodes agiles" },
+          { "number": "17", "value": "JIRA" },
+          { "number": "15", "value": "Anglais" },
+          { "number": "13", "value": "Microsoft Office" },
+          { "number": "12", "value": "Gestion de projet" },
+          { "number": "12", "value": "Scrum" },
+          { "number": "11", "value": "HTML" },
+          { "number": "11", "value": "API Postman" },
+          { "number": "10", "value": "JavaScript" },
+          { "number": "10", "value": "Tests logiciels" },
+          { "number": "9", "value": "Communication" },
+          { "number": "9", "value": "C++" },
+          { "number": "9", "value": "Assurance qualit\u00e9" },
+          { "number": "9", "value": "Planification des tests" }
+        ]
+      },
+      {
+        "\u00c9tudes": [
+          {
+            "number": "11",
+            "value": "Sciences informatiques et de l\u2019information et services apparent\u00e9s"
+          },
+          { "number": "8", "value": "Math\u00e9matiques" },
+          { "number": "8", "value": "Physique" },
+          { "number": "7", "value": "Chimie" },
+          {
+            "number": "4",
+            "value": "Ing\u00e9nierie \u00e9lectrique et \u00e9lectronique"
+          },
+          { "number": "3", "value": "Informatique" },
+          { "number": "3", "value": "Ing\u00e9nierie" },
+          { "number": "3", "value": "Ing\u00e9nierie informatique" },
+          { "number": "3", "value": "Math\u00e9matiques et informatique" },
+          { "number": "3", "value": "Calcul scientifique" },
+          { "number": "3", "value": "Sciences physiques" },
+          {
+            "number": "3",
+            "value": "Design et communication visuelle, g\u00e9n\u00e9ral"
+          },
+          { "number": "2", "value": "Programmation informatique" },
+          {
+            "number": "2",
+            "value": "Sciences / \u00e9tudes de l\u2019information"
+          },
+          {
+            "number": "2",
+            "value": "Mise en r\u00e9seau de syst\u00e8mes informatiques et t\u00e9l\u00e9communications"
+          }
+        ]
+      },
+      { "Connexion": [{ "number": "41", "value": "3e et +" }] }
+    ]
+  },
+  {
+    "school": "universit-paris-saclay",
+    "jobTitle": "office 365",
+    "startYear": "2020",
+    "endYear": "2024",
+    "cols": [
+      {
+        "Lieu de travail": [
+          { "number": "4", "value": "Microsoft" },
+          { "number": "4", "value": "Orange Business" },
+          { "number": "4", "value": "EDF" },
+          { "number": "4", "value": "Universit\u00e9 Paris-Saclay" },
+          { "number": "3", "value": "BNP Paribas" },
+          { "number": "3", "value": "METSYS" },
+          { "number": "3", "value": "ALTEN" },
+          { "number": "3", "value": "Inserm" },
+          { "number": "2", "value": "Orange" },
+          { "number": "2", "value": "SLB" },
+          { "number": "2", "value": "Capgemini" },
+          { "number": "2", "value": "Team for the Planet" },
+          { "number": "2", "value": "Thales" },
+          { "number": "2", "value": "LFB" },
+          { "number": "2", "value": "Fnac Darty" }
+        ]
+      },
+      {
+        "Lieu de r\u00e9sidence": [
+          { "number": "309", "value": "France" },
+          { "number": "272", "value": "\u00cele-de-France, France" },
+          { "number": "255", "value": "Greater Paris Metropolitan Region" },
+          { "number": "94", "value": "Paris" },
+          { "number": "14", "value": "\u00c9vry" },
+          { "number": "9", "value": "Massy" },
+          { "number": "8", "value": "Versailles" },
+          { "number": "7", "value": "Provence-Alpes-C\u00f4te d'Azur, France" },
+          { "number": "5", "value": "Antony" },
+          { "number": "5", "value": "Auvergne-Rh\u00f4ne-Alpes, France" },
+          { "number": "5", "value": "Longjumeau" },
+          { "number": "5", "value": "Les Ulis" },
+          { "number": "5", "value": "Greater Lyon Area" },
+          { "number": "4", "value": "Lyon" },
+          { "number": "4", "value": "Occitanie, France" }
+        ]
+      },
+      {
+        "Occupation": [
+          { "number": "67", "value": "Technologies de l\u2019information" },
+          { "number": "33", "value": "Ing\u00e9nierie" },
+          { "number": "27", "value": "Op\u00e9rations" },
+          { "number": "23", "value": "Ventes" },
+          { "number": "21", "value": "Management de projets et de programmes" },
+          { "number": "21", "value": "Enseignement" },
+          { "number": "19", "value": "M\u00e9dias et communication" },
+          { "number": "15", "value": "Recherche" },
+          { "number": "14", "value": "Ressources humaines" },
+          { "number": "12", "value": "Marketing" },
+          { "number": "12", "value": "D\u00e9veloppement commercial" },
+          { "number": "11", "value": "Finance" },
+          { "number": "10", "value": "Comptabilit\u00e9" },
+          { "number": "9", "value": "Conseil" },
+          { "number": "8", "value": "Assistance" }
+        ]
+      },
+      {
+        "Comp\u00e9tences": [
+          { "number": "222", "value": "Office\u00a0365" },
+          { "number": "194", "value": "Microsoft Office" },
+          { "number": "173", "value": "Anglais" },
+          { "number": "147", "value": "Gestion de projet" },
+          { "number": "141", "value": "Microsoft Excel" },
+          { "number": "140", "value": "Travail d\u2019\u00e9quipe" },
+          { "number": "132", "value": "Communication" },
+          { "number": "107", "value": "Python (langage de programmation)" },
+          { "number": "92", "value": "Sens de l\u2019organisation" },
+          { "number": "89", "value": "Microsoft PowerPoint" },
+          { "number": "85", "value": "Microsoft Word" },
+          { "number": "69", "value": "Comp\u00e9tences analytiques" },
+          { "number": "64", "value": "Fran\u00e7ais" },
+          { "number": "51", "value": "Autonomie" },
+          { "number": "51", "value": "Service client" }
+        ]
+      },
+      {
+        "\u00c9tudes": [
+          {
+            "number": "73",
+            "value": "Sciences informatiques et de l\u2019information et services apparent\u00e9s"
+          },
+          {
+            "number": "51",
+            "value": "Mise en r\u00e9seau de syst\u00e8mes informatiques et t\u00e9l\u00e9communications"
+          },
+          { "number": "47", "value": "\u00c9conomie" },
+          {
+            "number": "28",
+            "value": "Administration et gestion des affaires, g\u00e9n\u00e9ral"
+          },
+          { "number": "26", "value": "Ing\u00e9nierie" },
+          { "number": "25", "value": "Droit" },
+          { "number": "25", "value": "Math\u00e9matiques" },
+          { "number": "22", "value": "Marketing" },
+          { "number": "18", "value": "Physique" },
+          { "number": "17", "value": "Communication, g\u00e9n\u00e9ral" },
+          {
+            "number": "17",
+            "value": "Administration de / administrateur r\u00e9seaux et syst\u00e8mes"
+          },
+          { "number": "13", "value": "Chimie" },
+          {
+            "number": "13",
+            "value": "Op\u00e9rations des services de protection"
+          },
+          { "number": "12", "value": "Ing\u00e9nierie informatique" },
+          { "number": "12", "value": "Math\u00e9matiques et informatique" }
+        ]
+      },
+      { "Connexion": [{ "number": "333", "value": "3e et +" }] }
+    ]
+  }
+]

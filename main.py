@@ -1,4 +1,4 @@
-from api.selenium import JobScrapper
+from api.selenium import AlumniScrapper
 from getpass import getpass
 from time import sleep
 
@@ -15,15 +15,15 @@ print("make sure to have access to internet for the application to work properly
 print("------------------------------------------------------")
 print("Initializing the Scrapper...")
 
-# Initialize the JobScrapper class and open the browser if needed
-jobScrapper = JobScrapper(
+# Initialize the AlumniScrapper class and open the browser if needed
+alumniScrapper = AlumniScrapper(
     "https://www.linkedin.com/login"    # "https://fr.indeed.com"
     , browserOpened=True
 )
 
 # open the browser (hidden to the user if the browserOpened is set to False)
 while not opened:
-    opened = jobScrapper.open_url()
+    opened = alumniScrapper.open_url()
     openedTentatives += 1
     if (openedTentatives > 3):
         break
@@ -43,7 +43,7 @@ password = getpass("password: ")
 
 
 while not logged:
-    logged = jobScrapper.login(username, password)
+    logged = alumniScrapper.login(username, password)
     if not logged:
         print(
             "Please verify your credentials and try again or you may need to manually enter a code to login.")
@@ -71,7 +71,7 @@ while school != "0":
 
     print("Getting the data...")
 
-    jobScrapper.find_school_alumni(school, job, startYear, endYear)
+    alumniScrapper.find_school_alumni(school, job, startYear, endYear)
 
     school = input(
         "Enter the school name (school id on linkedin) or 0 to quit: ")
