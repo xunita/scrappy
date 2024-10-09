@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import json
+import re
 
 # class to navigate to a page
 
@@ -237,8 +238,22 @@ class AlumniScrapper:
     # format the page source
     def format_page_source(self, school, jobTitle, startYear, endYear):
         # do everything here
-        soup = BeautifulSoup(self.__driver.page_source, 'html.parser')
         data = {}
+        soup = BeautifulSoup(self.__driver.page_source, 'html.parser')
+        # get the number of old students
+        oldStudents = soup.find('h2', class_='text-heading-xlarge')
+        if(oldStudents is not None):
+            # the number of old students inside the text
+            text=oldStudents.get_text(strip=True)
+            numbers = re.findall(r'(\d+)\s+\w+', text)  # Match numbers followed by text
+
+            number = int(numbers[0]) if numbers else None
+            if number is not None:
+                data['oldStudents'] = number
+            else:
+                data['oldStudents'] = 0
+        else:
+            data['oldStudents'] = 0
         data['school'] = school
         data['jobTitle'] = jobTitle
         data['startYear'] = startYear

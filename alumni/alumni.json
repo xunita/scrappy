@@ -1,118 +1,6 @@
 [
   {
-    "school": "universit-paris-saclay",
-    "jobTitle": "qa testeur",
-    "startYear": "2002",
-    "endYear": "2024",
-    "cols": [
-      {
-        "Lieu de travail": [
-          { "number": "2", "value": "Capgemini" },
-          { "number": "2", "value": "Louis Vuitton" },
-          { "number": "1", "value": "FRISBEE PROFILING" },
-          { "number": "1", "value": "Shadow" },
-          { "number": "1", "value": "FUNECAP GROUPE" },
-          { "number": "1", "value": "L'AGENT X" },
-          { "number": "1", "value": "Orange" },
-          { "number": "1", "value": "Tower Five" },
-          { "number": "1", "value": "Atos" },
-          { "number": "1", "value": "UpMan Consulting" },
-          { "number": "1", "value": "Sogeti" },
-          { "number": "1", "value": "G7 taxis" },
-          { "number": "1", "value": "Systematix" },
-          { "number": "1", "value": "Veeam Software" },
-          { "number": "1", "value": "SEWAN GROUPE" }
-        ]
-      },
-      {
-        "Lieu de r\u00e9sidence": [
-          { "number": "40", "value": "France" },
-          { "number": "34", "value": "\u00cele-de-France, France" },
-          { "number": "32", "value": "Greater Paris Metropolitan Region" },
-          { "number": "14", "value": "Paris" },
-          { "number": "2", "value": "Courbevoie" },
-          { "number": "2", "value": "Hauts-de-France, France" },
-          { "number": "2", "value": "\u00c9vry" },
-          { "number": "1", "value": "Lille" },
-          { "number": "1", "value": "Vaires-sur-Marne" },
-          { "number": "1", "value": "Germany" },
-          { "number": "1", "value": "Grand Est, France" },
-          { "number": "1", "value": "Asni\u00e8res-sur-Seine" },
-          { "number": "1", "value": "Les Mureaux" },
-          { "number": "1", "value": "Guyancourt" },
-          { "number": "1", "value": "Champigny-sur-Marne" }
-        ]
-      },
-      {
-        "Occupation": [
-          { "number": "17", "value": "Assurance qualit\u00e9" },
-          { "number": "11", "value": "Ing\u00e9nierie" },
-          { "number": "3", "value": "Technologies de l\u2019information" },
-          { "number": "3", "value": "Op\u00e9rations" },
-          { "number": "2", "value": "Responsable produit" },
-          { "number": "1", "value": "Recherche" },
-          { "number": "1", "value": "Arts et Design" },
-          { "number": "1", "value": "D\u00e9veloppement commercial" },
-          { "number": "1", "value": "Conseil" }
-        ]
-      },
-      {
-        "Comp\u00e9tences": [
-          { "number": "19", "value": "SQL" },
-          { "number": "18", "value": "M\u00e9thodes agiles" },
-          { "number": "17", "value": "JIRA" },
-          { "number": "15", "value": "Anglais" },
-          { "number": "13", "value": "Microsoft Office" },
-          { "number": "12", "value": "Gestion de projet" },
-          { "number": "12", "value": "Scrum" },
-          { "number": "11", "value": "HTML" },
-          { "number": "11", "value": "API Postman" },
-          { "number": "10", "value": "JavaScript" },
-          { "number": "10", "value": "Tests logiciels" },
-          { "number": "9", "value": "Communication" },
-          { "number": "9", "value": "C++" },
-          { "number": "9", "value": "Assurance qualit\u00e9" },
-          { "number": "9", "value": "Planification des tests" }
-        ]
-      },
-      {
-        "\u00c9tudes": [
-          {
-            "number": "11",
-            "value": "Sciences informatiques et de l\u2019information et services apparent\u00e9s"
-          },
-          { "number": "8", "value": "Math\u00e9matiques" },
-          { "number": "8", "value": "Physique" },
-          { "number": "7", "value": "Chimie" },
-          {
-            "number": "4",
-            "value": "Ing\u00e9nierie \u00e9lectrique et \u00e9lectronique"
-          },
-          { "number": "3", "value": "Informatique" },
-          { "number": "3", "value": "Ing\u00e9nierie" },
-          { "number": "3", "value": "Ing\u00e9nierie informatique" },
-          { "number": "3", "value": "Math\u00e9matiques et informatique" },
-          { "number": "3", "value": "Calcul scientifique" },
-          { "number": "3", "value": "Sciences physiques" },
-          {
-            "number": "3",
-            "value": "Design et communication visuelle, g\u00e9n\u00e9ral"
-          },
-          { "number": "2", "value": "Programmation informatique" },
-          {
-            "number": "2",
-            "value": "Sciences / \u00e9tudes de l\u2019information"
-          },
-          {
-            "number": "2",
-            "value": "Mise en r\u00e9seau de syst\u00e8mes informatiques et t\u00e9l\u00e9communications"
-          }
-        ]
-      },
-      { "Connexion": [{ "number": "41", "value": "3e et +" }] }
-    ]
-  },
-  {
+    "oldStudents": 333,
     "school": "universit-paris-saclay",
     "jobTitle": "office 365",
     "startYear": "2020",
@@ -229,6 +117,104 @@
         ]
       },
       { "Connexion": [{ "number": "333", "value": "3e et +" }] }
+    ]
+  },
+  {
+    "oldStudents": 0,
+    "school": "universit-paris-saclay",
+    "jobTitle": "duhsdjichsuchdhcdsicjksd",
+    "startYear": "2000",
+    "endYear": "2024",
+    "cols": []
+  },
+  {
+    "oldStudents": 5,
+    "school": "universit-paris-saclay",
+    "jobTitle": "nettoyeur",
+    "startYear": "2020",
+    "endYear": "2024",
+    "cols": [
+      {
+        "Lieu de travail": [
+          { "number": "1", "value": "ENS Paris-Saclay" },
+          { "number": "1", "value": "Universit\u00e9 Paris-Saclay" },
+          { "number": "1", "value": "\u534e\u4e2d\u79d1\u6280\u5927\u5b66" },
+          {
+            "number": "1",
+            "value": "ADEPS (Association des Doctorants ENS PS)"
+          }
+        ]
+      },
+      {
+        "Lieu de r\u00e9sidence": [
+          { "number": "4", "value": "\u00cele-de-France, France" },
+          { "number": "4", "value": "France" },
+          { "number": "4", "value": "Greater Paris Metropolitan Region" },
+          { "number": "1", "value": "\u00c9cublens" },
+          { "number": "1", "value": "Vaud, Switzerland" },
+          { "number": "1", "value": "Gif-sur-Yvette" },
+          { "number": "1", "value": "Aubervilliers" },
+          { "number": "1", "value": "Orsay" },
+          { "number": "1", "value": "Switzerland" },
+          { "number": "1", "value": "Versailles" },
+          { "number": "1", "value": "Lausanne Metropolitan Area" }
+        ]
+      },
+      {
+        "Occupation": [
+          { "number": "3", "value": "Enseignement" },
+          { "number": "1", "value": "Management de projets et de programmes" },
+          { "number": "1", "value": "D\u00e9veloppement commercial" }
+        ]
+      },
+      {
+        "Comp\u00e9tences": [
+          { "number": "2", "value": "Biologie mol\u00e9culaire" },
+          { "number": "2", "value": "Python (langage de programmation)" },
+          { "number": "2", "value": "MATLAB" },
+          { "number": "2", "value": "Microsoft Excel" },
+          { "number": "2", "value": "Biochimie" },
+          { "number": "2", "value": "Anglais" },
+          { "number": "2", "value": "Microsoft Office" },
+          { "number": "1", "value": "G\u00e9nie g\u00e9n\u00e9tique" },
+          { "number": "1", "value": "Arduino" },
+          { "number": "1", "value": "Tests statistiques" },
+          { "number": "1", "value": "Th\u00e9rapie cellulaire" },
+          { "number": "1", "value": "Communication" },
+          { "number": "1", "value": "Oncologie" },
+          { "number": "1", "value": "Gestion des achats" },
+          { "number": "1", "value": "Biologie" }
+        ]
+      },
+      {
+        "\u00c9tudes": [
+          { "number": "3", "value": "Math\u00e9matiques" },
+          { "number": "2", "value": "Biologie, g\u00e9n\u00e9ral" },
+          {
+            "number": "1",
+            "value": "Mise en r\u00e9seau de syst\u00e8mes informatiques et t\u00e9l\u00e9communications"
+          },
+          { "number": "1", "value": "Formation" },
+          { "number": "1", "value": "Ing\u00e9nierie" },
+          {
+            "number": "1",
+            "value": "Ing\u00e9nierie \u00e9lectrique et \u00e9lectronique"
+          },
+          { "number": "1", "value": "Ing\u00e9nierie des mat\u00e9riaux" },
+          { "number": "1", "value": "G\u00e9nie industriel" },
+          {
+            "number": "1",
+            "value": "Technologie / technicien de gestion de l\u2019\u00e9nergie et des syst\u00e8mes"
+          },
+          { "number": "1", "value": "Nutrition humaine" },
+          { "number": "1", "value": "Biologie, g\u00e9n\u00e9ral" },
+          { "number": "1", "value": "Biochimie" },
+          { "number": "1", "value": "Biophysique" },
+          { "number": "1", "value": "Biologie cellulaire et mol\u00e9culaire" },
+          { "number": "1", "value": "Microbiologie, g\u00e9n\u00e9ral" }
+        ]
+      },
+      { "Connexion": [{ "number": "5", "value": "3e et +" }] }
     ]
   }
 ]
