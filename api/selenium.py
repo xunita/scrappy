@@ -188,10 +188,12 @@ class JobScrapper:
                 # add a sleep
                 sleep(3)
 
-            usernameTag = self.find_element_by_id(
-                self.__selectors['sign_in']['username']['id'])
-            
-            if usernameTag is None:
+            global_search = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located(
+                    (By.ID, 'global-nav-search'))
+            )
+
+            if global_search is not None:
                 return True
             else:
                 # redirect to the login page
