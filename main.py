@@ -1,4 +1,4 @@
-from api.selenium import AlumniScrapper
+from api.alumni import AlumniScrapper
 from getpass import getpass
 from time import sleep
 
