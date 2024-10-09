@@ -188,15 +188,13 @@ class JobScrapper:
                 # add a sleep
                 sleep(3)
 
-                usernameTag = self.find_element_by_id(
-                    self.__selectors['sign_in']['username']['id'])
-
-                if usernameTag is None:
-                    return True
-                else:
-                    # redirect to the login page
-                    self.__driver.get(self.__url)
+            usernameTag = self.find_element_by_id(
+                self.__selectors['sign_in']['username']['id'])
+            
+            if usernameTag is None:
+                return True
             else:
+                # redirect to the login page
                 self.__driver.get(self.__url)
             return False
         except Exception as e:
@@ -209,7 +207,7 @@ class JobScrapper:
             self.__driver.get(
                 f'https://www.linkedin.com/school/{school}/people/?educationEndYear={endYear}&educationStartYear={startYear}&keywords={jobTitle}')
             # check if the alumni page is loaded
-            sleep(2)
+            sleep(4)
             alumni_page = self.find_element_by_selector(
                 self.__selectors['has_alumni_result']['selector'])
 
