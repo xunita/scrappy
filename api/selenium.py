@@ -1,17 +1,11 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import json
-
-
-from keywords.jobsKeys import jobsKeys
-from utils.utils import urls
 
 # class to navigate to a page
 
