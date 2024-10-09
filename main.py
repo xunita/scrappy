@@ -40,9 +40,6 @@ print("Please connect to your LinkedIn account to get started.")
 print("username: ")
 username = input()
 password = getpass("password: ")
-# # todo: comment the following lines for dynamic login
-# username = "zebezeben@gmail.com"
-# password = "Azerty@12"
 
 
 while not logged:
@@ -52,9 +49,6 @@ while not logged:
             "Please verify your credentials and try again or you may need to manually enter a code to login.")
         username = input("username: ")
         password = getpass("password: ")
-        # # todo: comment the following lines for dynamic login
-        # username = "zebezeben@gmail.com"
-        # password = "Azerty@12"
 
 print("You have successfully logged in.")
 # add a sleep time
